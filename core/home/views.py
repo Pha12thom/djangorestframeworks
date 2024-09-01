@@ -24,7 +24,11 @@ def index(request):
     if request.method == 'GET':
         return Response(courses)
     elif request.method == 'POST':
+        data = request.data
+        print(data)
         return Response({'message': 'Data created'}, status=201)
     
+    elif request.method == 'PUT':
+        return Response({'message': 'Data updated'}, status=200)
     
     return Response(courses)
