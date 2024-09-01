@@ -2,8 +2,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def index(request):
+       
     courses = [
         {
             'id': 1,
@@ -18,4 +19,12 @@ def index(request):
             'instructor': 'Instructor 2'
         }
     ]
+    
+    
+    if request.method == 'GET':
+        return Response(courses)
+    elif request.method == 'POST':
+        return Response({'message': 'Data created'}, status=201)
+    
+    
     return Response(courses)
