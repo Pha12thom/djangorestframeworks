@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from .models import Person
+from serializers import PeopleSerializer
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def index(request):
@@ -33,3 +34,9 @@ def index(request):
         return Response({'message': 'Data updated'}, status=200)
     
     return Response(courses)
+
+api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def people(request):
+    if request.GET:
+        obj = Person.object.all()
+        
