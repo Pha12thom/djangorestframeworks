@@ -22,6 +22,7 @@ def index(request):
     
     
     if request.method == 'GET':
+        print(request.GET.get('search'))
         return Response(courses)
     elif request.method == 'POST':
         data = request.data
