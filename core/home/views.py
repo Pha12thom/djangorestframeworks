@@ -37,8 +37,8 @@ def index(request):
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def people(request):
     if request.method == 'GET':
-        obj = Person.objects.all()  # Corrected the query
-        serialized_data = PeopleSerializer(obj, many=True)  # Renamed the variable
+        obj = Person.objects.all() 
+        serialized_data = PeopleSerializer(obj, many=True) 
         return Response(serialized_data.data)
     
     if request.method == 'POST':
