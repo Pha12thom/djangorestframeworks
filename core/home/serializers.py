@@ -4,6 +4,5 @@ from .models import Person
 class PeopleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        exclude = ['id']
         fields = '__all__'
         

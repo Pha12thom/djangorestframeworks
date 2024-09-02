@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Person
-from serializers import PeopleSerializer
+from .serializers import PeopleSerializer
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def index(request):
@@ -37,12 +37,12 @@ def index(request):
 
 api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def people(request):
-    if request.GET:
+    if request.method == 'GET':
         obj = Person.object.all()
         Person = PeopleSerializer(obj, many=True)
         return Response(Person.data)
     
-    if request.POST:
+    if request.method == 'POST':
         data = request.data
         serializer = PeopleSerializer(data=data)
         if serializer.is_valid():
