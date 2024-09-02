@@ -39,4 +39,16 @@ api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def people(request):
     if request.GET:
         obj = Person.object.all()
+        Person = PeopleSerializer(obj, many=True)
+        return Response(Person.data)
+    
+    if request.POST:
+        data = request.data
+        serializer = PeopleSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+     
+        
         
