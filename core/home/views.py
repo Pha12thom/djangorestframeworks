@@ -34,7 +34,7 @@ def index(request):
     return Response(courses)
 
 @csrf_exempt
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
 def people(request):
     if request.method == 'GET':
         obj = Person.objects.all() 
@@ -47,4 +47,22 @@ def people(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    
+    if request.method == 'PUT':
+        data = request.data
+        person = Person.objects.get(id=data['id'])
+        serializer = PeopleSerializer(person, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+    
+    if request.method == 'PATCH':
+        data = request.data
+        person = Person.objects.get(id=data['id'])
+        serializer = PeopleSerializer(person, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
         return Response(serializer.errors, status=400)
